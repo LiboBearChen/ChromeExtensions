@@ -1,4 +1,9 @@
 $(function(){
+
+    chrome.storage.sync.get('total',function(budget){
+        $('#total').text(budget.total);
+    })
+
     $('#spendAmount').click(function(){
         chrome.storage.sync.get('total',function(budget){
             var newTotal=0;
