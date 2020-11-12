@@ -20,25 +20,7 @@
         "tabs",
         "storage",
         "contextMenus"
-    ],
-
-
-
-
-
-
-    "page_action":{
-        "default_icon":"icon16.png",
-        "default_popup":"popup.html",
-        "default_title":"PageFontStyle"
-    },
-    
-    "content_scripts":[
-        {
-            "matches":["https://developer.chrome.com/*"],
-            "js":["content.js","jquery-3.5.1.min.js"],
-            "css":["content.css"]
-        }
     ]
+
     
 }
