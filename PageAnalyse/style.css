@@ -1,7 +1,11 @@
 .scroll-box{
     overflow-y: auto;
     height: 100px;
-    width: 100px;
     float: left;
     padding: 1rem;
+}
+
+.displayBox{
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -11,10 +11,20 @@ $(function(){
         let resultsHTML = "";
     
         for (i = 0; i < items.length - 1; i++) {
-                resultsHTML += "<li>" + items[i] + "<a > Remove </a> </li>";
+                resultsHTML += "<li>" + items[i] + "<a > Remove/Add </a> </li>";
         }
     
         element.innerHTML = resultsHTML;
     }
+
+
+
+    $('#analyse').click(function(){
+        chrome.storage.sync.get(['words'],function(storage){
+            var words=storage.words;
+            let resultsHTML = "";
+            $('#result').innerHTML=resultsHTML;
+        });
+    });
 
 });
