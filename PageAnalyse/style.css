@@ -1,6 +1,6 @@
 .scroll-box{
     overflow-y: auto;
-    height: 100px;
+    height: 200px;
     float: left;
     padding: 1rem;
 }

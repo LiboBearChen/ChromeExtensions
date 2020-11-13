@@ -8,23 +8,32 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            width: 350px;
+            height: 350px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Page Analyse</h1>
-    <h2>Saved Words:</h2>
-    <div class="displayBox scroll-box" id="savedWords">
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="list-unstyled mb-0" id="wordLines">
-                    
-                </ul>
+    <div class="container">
+        <h3 class="title">Page Analyse</h3>
+        <h5>Saved Words:</h5>
+        <div class="displayBox scroll-box" id="savedWords">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-unstyled mb-0" id="wordLines">
+
+                    </ul>
+                </div>
             </div>
         </div>
+        <h5>Analyse Result:</h5>
+        <input type="submit" id="analyse" value="Analyse">
+        <div id="result"></div>
     </div>
-    <h2>Analyse Result:</h2>
-    <input type="submit" id="analyse" value="Analyse" >
-    <div id="result"></div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

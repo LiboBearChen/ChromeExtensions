@@ -18,6 +18,7 @@
     },
     "permissions":[
         "tabs",
+        "<all_urls>",
         "storage",
         "contextMenus"
     ]
