@@ -1,3 +1,4 @@
+//context menu
 var contextMenuItem = {
     "id": "saveWord",
     "title": "SaveWord",
@@ -5,6 +6,7 @@ var contextMenuItem = {
 };
 chrome.contextMenus.create(contextMenuItem);
 
+//listen to context menu click
 chrome.contextMenus.onClicked.addListener(function (clickData) {
     if (clickData.menuItemId == "saveWord" && clickData.selectionText) {
         chrome.storage.sync.get(['words'], function (storage) {
@@ -29,37 +31,14 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
     }
 });
 
-//show badge on the icon
-chrome.storage.onChanged.addListener(function(changes,storageName){
+//actions when saved words change
+chrome.storage.onChanged.addListener(function(changes,storage){
+
+    //show new words by badge on the icon
     chrome.browserAction.setBadgeText({"text":changes.words[words.length-1].toString()});
-    performMark();
+    
+    //send message to content.js
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { todo: "markWords", savedWords: storage.words })
+    });
 });
-
-//mark words on pages
-function performMark() {
-    var keyword = document.getElementById("keyword").value;
-    var display = document.getElementById("fileContent");
-
-    var newcontent = "";
-
-    let spans = document.querySelectorAll('mark');
-
-    for (var i = 0; i < spans.length; i++) {
-        spans[i].outerHTML = spans[i].innerHTML;
-    }
-
-    var re = new RegExp(keyword, "gi");
-    var replaceText = "<mark id='markme'>$&</mark>";
-    var bookContent = display.innerHTML;
-
-    newcontent = bookContent.replace(re, replaceText);
-
-    display.innerHTML = newcontent;
-    var count = document.querySelectorAll('mark').length;
-    document.getElementById("searchstat").innerHTML = "found " + count + " matches";
-
-    if (count > 0) {
-        var element = document.getElementById("markme");
-        element.scrollIntoView();
-    }
-}
