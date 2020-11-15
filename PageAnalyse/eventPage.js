@@ -31,14 +31,4 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
     }
 });
 
-//actions when saved words change
-chrome.storage.onChanged.addListener(function(changes,storage){
 
-    //show new words by badge on the icon
-    chrome.browserAction.setBadgeText({"text":changes.words[words.length-1].toString()});
-    
-    //send message to content.js
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { todo: "markWords", savedWords: storage.words })
-    });
-});
