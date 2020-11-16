@@ -27,7 +27,8 @@
         "<all_urls>",
         "storage",
         "contextMenus"
-    ]
+    ],
+    "content_security_policy": "script-src 'self' https://example.com; object-src 'self' "
 
     
 }

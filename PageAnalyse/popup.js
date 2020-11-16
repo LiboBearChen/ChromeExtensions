@@ -3,11 +3,11 @@ $(function () {
 
     //build saved words in popup page at the beginning
     chrome.storage.sync.get(['words'], function (storage) {
-        RefreshSavedWords(storage.words);
+        refreshSavedWords(storage.words);
     });
 
     //refresh the saved words section on the popup page
-    function RefreshSavedWords(words) {
+    function refreshSavedWords(words) {
         var wordLines = document.getElementById("wordLines");
         ULTemplate(words, wordLines);
     }
@@ -16,27 +16,27 @@ $(function () {
     function ULTemplate(items, element) {
         let resultsHTML = "";
         for (i = 0; i < items.length; i++) {
-            resultsHTML += "<li>" + items[i] + "<a href='#' onclick='loadBook()'> Remove </a> </li>";
+            resultsHTML += "<li>" + items[i] + `<a href='javascript:removeWord(${i});' class='btn btn-outline-danger btn-sm float-right'> Remove </a> </li>`;
         }
         element.innerHTML = resultsHTML;
     }
 
     //remove one word
-    $('#analyse').click(function () {
+    function removeWord (index) {
         var newWords = [];
         chrome.storage.sync.get(['words'], function (storage) {
-            newWords=storage.words;
+            newWords = storage.words;
         });
-        newWords
+        newWords.splice(index, 1);
         chrome.storage.sync.set({ 'words': newWords }, function () { });
-        RefreshSavedWords(newWords);
-    });
+        refreshSavedWords(newWords);
+    }
 
     //clear all button clicked
     $('#analyse').click(function () {
         var newWords = [];
         chrome.storage.sync.set({ 'words': newWords }, function () { });
-        RefreshSavedWords(newWords);
+        refreshSavedWords(newWords);
     });
 
     //analyse button clicked
@@ -61,3 +61,4 @@ $(function () {
     });
 
 });
+
