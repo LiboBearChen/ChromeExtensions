@@ -62,3 +62,9 @@ $(function () {
 
 });
 
+$("selector").click({param1: "dwqd", param2: "wqdwq"}, move);
+
+function move(event){
+    alert(event.data.param1);
+    alert(event.data.param2);
+}
