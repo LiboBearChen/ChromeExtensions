@@ -19,7 +19,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
             var saved=false;
             for(word in newWords){
                 if(word===clickData.selectionText){
-                    chrome.browserAction.setBadgeText({"text":"Already Saved"});
+                    chrome.browserAction.setBadgeText({"text":word});
                     saved=true;
                 }
             }
@@ -29,6 +29,14 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
             }
         });
     }
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+    refreshSavedWords(changes.words.newValue)
+
+    //show the number of words by badge on the icon
+    chrome.browserAction.setBadgeText({ "text": changes.words.newValue.length.toString() });
+
 });
 
 

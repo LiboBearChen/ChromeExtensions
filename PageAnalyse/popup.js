@@ -42,7 +42,6 @@ $(function () {
     $('#clear').click(function () {
         let newWords = [];
         chrome.storage.sync.set({ 'words': newWords }, function () { });
-        refreshSavedWords(newWords);
     });
 
     //analyse button clicked
@@ -55,12 +54,11 @@ $(function () {
     });
 
     //actions when saved words change
-    chrome.storage.onChanged.addListener(function (changes, storage) {
+    chrome.storage.onChanged.addListener(function (changes) {
+        refreshSavedWords(changes.words.newValue)
 
-        let wordLines = document.getElementById("wordLines");
-        ULTemplate(changes.words, wordLines);
-        //show the last word by badge on the icon
-        // chrome.browserAction.setBadgeText({ "text": changes.words[words.length - 1].toString() });
+        //show the number of words by badge on the icon
+        chrome.browserAction.setBadgeText({ "text": changes.words.newValue.length.toString() });
 
         //send message to content.js
         /* chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
