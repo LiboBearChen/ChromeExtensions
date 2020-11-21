@@ -6,6 +6,16 @@ var contextMenuItem = {
 };
 chrome.contextMenus.create(contextMenuItem);
 
+//show badge at the beginning
+chrome.storage.sync.get(['words'], function (storage) {
+    refreshBadge(storage.words.length);
+});
+
+//refresh the  badge
+function refreshBadge(number){
+    chrome.browserAction.setBadgeText({ "text": number.toString() });
+}
+
 //listen to context menu click
 chrome.contextMenus.onClicked.addListener(function (clickData) {
     if (clickData.menuItemId == "saveWord" && clickData.selectionText) {
@@ -17,9 +27,8 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
 
             //avoid duplicate words
             var saved=false;
-            for(word in newWords){
-                if(word===clickData.selectionText){
-                    chrome.browserAction.setBadgeText({"text":word});
+            for(i in newWords){
+                if(newWords[i]===clickData.selectionText){
                     saved=true;
                 }
             }
@@ -32,11 +41,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
 });
 
 chrome.storage.onChanged.addListener(function (changes) {
-    refreshSavedWords(changes.words.newValue)
-
-    //show the number of words by badge on the icon
-    chrome.browserAction.setBadgeText({ "text": changes.words.newValue.length.toString() });
-
+    refreshBadge(changes.words.newValue.length);
 });
 
 

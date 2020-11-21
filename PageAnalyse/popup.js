@@ -20,11 +20,6 @@ $(function () {
         }
 
         element.innerHTML = resultsHTML;
-
-        for (i = 0; i < items.length; i++) {
-            let wordAnchor = document.getElementById(i);
-            wordAnchor.index = i;
-        }
     }
 
     //remove one word
@@ -56,9 +51,6 @@ $(function () {
     //actions when saved words change
     chrome.storage.onChanged.addListener(function (changes) {
         refreshSavedWords(changes.words.newValue)
-
-        //show the number of words by badge on the icon
-        chrome.browserAction.setBadgeText({ "text": changes.words.newValue.length.toString() });
 
         //send message to content.js
         /* chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
