@@ -2,24 +2,19 @@
 <html>
 
 <head>
-    <title>PageAnalyse</title>
+    <title>Search String Generator</title>
     <script src="jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="popup.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        body {
-            width: 350px;
-            height: 350px;
-        }
-    </style>
+
 </head>
 
 <body>
-    <div class="container">
-        <h3 class="title">Page Analyse</h3>
+    <div class="container" style="text-align: center;">
+        <h3 class="title">Search String Generator</h3>
         <h5>Saved Words:</h5>
         <div class="displayBox scroll-box" id="savedWords">
             <div class="row">
@@ -36,9 +31,11 @@
         <br>
         <input type="submit" class="btn btn-primary" id="clear" value="Clear all">
         <br>
-        <h5>Analyse Result:</h5>
-        <input type="submit" class="btn btn-success" id="analyse" value="Analyse">
-        <div id="result"></div>
+        <h5>Generated String:</h5>
+        <div id="string"></div>
+        <input type="submit" class="btn btn-success" id="copy" value="Copy">
+        <span id="copyStatus" style="transition: opacity 0.4s ease-out 0s; opacity: 0;">Copied!</span>
+        <input type="submit" class="btn btn-success" id="search" value="Search">
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
