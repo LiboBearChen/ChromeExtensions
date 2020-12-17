@@ -1,6 +1,8 @@
 
 $(function () {
 
+    let searchString = ''
+
     //build saved words in popup page at the beginning
     chrome.storage.sync.get(['words'], function (storage) {
         refreshSavedWords(storage.words);
@@ -10,6 +12,16 @@ $(function () {
     function refreshSavedWords(words) {
         let wordLines = document.getElementById("wordLines");
         ULTemplate(words, wordLines);
+        generateString(words);
+    }
+
+    // make and show a string consisting of words
+    function generateString(words) {
+        let searchString = ''
+        for (i in words) {
+            searchString += words[i] + ' '
+        }
+        document.getElementById("string").innerHTML = searchString
     }
 
     //template for each word line
@@ -39,13 +51,15 @@ $(function () {
         chrome.storage.sync.set({ 'words': newWords }, function () { });
     });
 
-    //analyse button clicked
-    $('#analyse').click(function () {
-        chrome.storage.sync.get(['words'], function (storage) {
-            let words = storage.words;
-            let resultsHTML = "";
-            $('#result').innerHTML = resultsHTML;
-        });
+    //copy button clicked
+    $('#copy').click(function () {
+        const el = document.createElement('textarea');
+        el.value = searchString;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        console.log(searchString)
     });
 
     //actions when saved words change

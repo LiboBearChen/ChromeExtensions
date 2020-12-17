@@ -22,6 +22,10 @@ body {
     background: linear-gradient(to right, #b1e991, #60bfff);
 }
 
+#string{
+    background-color: yellow;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
