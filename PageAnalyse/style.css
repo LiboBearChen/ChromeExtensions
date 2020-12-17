@@ -22,6 +22,11 @@ body {
     background: linear-gradient(to right, #b1e991, #60bfff);
 }
 
+#copyStatus{
+    background-color: rgb(217, 238, 141);
+    opacity: 0;
+}
+
 #string{
     background-color: yellow;
 }

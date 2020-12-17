@@ -10,6 +10,7 @@ $(function () {
 
     //refresh the saved words section on the popup page
     function refreshSavedWords(words) {
+        document.getElementById('copyStatus').style.opacity = 1;
         let wordLines = document.getElementById("wordLines");
         ULTemplate(words, wordLines);
         generateString(words);
@@ -17,7 +18,7 @@ $(function () {
 
     // make and show a string consisting of words
     function generateString(words) {
-        let searchString = ''
+        searchString = ''
         for (i in words) {
             searchString += words[i] + ' '
         }
@@ -53,13 +54,18 @@ $(function () {
 
     //copy button clicked
     $('#copy').click(function () {
+        //copy string to Clipboard
         const el = document.createElement('textarea');
         el.value = searchString;
         document.body.appendChild(el);
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
-        console.log(searchString)
+
+        //show a copied indicator
+        document.getElementById('copyStatus').style.opacity = 1;
+
+        
     });
 
     //actions when saved words change
