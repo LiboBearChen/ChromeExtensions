@@ -35,6 +35,39 @@ $(function () {
         element.innerHTML = resultsHTML;
     }
 
+    //build a Google's URL
+    function buildURL() {
+        chrome.storage.sync.get(['words'], function (storage) {
+            let url = 'http://www.google.com/search?q='
+            for (i in storage.words) {
+                url += storage.words[i]
+                if (i != storage.words.length - 1) {
+                    url += '+'
+                }
+            }
+            console.log(url)
+            return url
+        })
+    }
+
+    //use url
+    function useURL(callback){
+        let url='' 
+        url=buildURL()
+        let el = document.createElement('a');
+        //el.href = url;
+        //el.target = '_blank';
+        document.body.appendChild(el);
+        console.log(url)
+        el.click();
+        document.body.removeChild(el);
+    }
+
+    //search button clicked
+    $('#search').click(function () {
+        useURL(buildURL)
+    });
+
     //remove one word
     $("ul").on("click", "a", function () {
         let index = $(this).attr('id');
@@ -55,7 +88,7 @@ $(function () {
     //copy button clicked
     $('#copy').click(function () {
         //copy string to Clipboard
-        const el = document.createElement('textarea');
+        let el = document.createElement('textarea');
         el.value = searchString;
         document.body.appendChild(el);
         el.select();
@@ -64,8 +97,6 @@ $(function () {
 
         //show a copied indicator
         document.getElementById('copyStatus').style.opacity = 1;
-
-        
     });
 
     //actions when saved words change
