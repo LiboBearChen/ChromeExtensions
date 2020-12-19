@@ -36,36 +36,31 @@ $(function () {
     }
 
     //build a Google's URL
-    function buildURL() {
-        chrome.storage.sync.get(['words'], function (storage) {
-            let url = 'http://www.google.com/search?q='
-            for (i in storage.words) {
-                url += storage.words[i]
-                if (i != storage.words.length - 1) {
-                    url += '+'
-                }
+    function buildURL(words) {
+        let url = 'http://www.google.com/search?q='
+        for (i in words) {
+            url += words[i]
+            if (i != words.length - 1) {
+                url += '+'
             }
-            console.log(url)
-            return url
-        })
-    }
-
-    //use url
-    function useURL(callback){
-        let url='' 
-        url=buildURL()
-        let el = document.createElement('a');
-        //el.href = url;
-        //el.target = '_blank';
-        document.body.appendChild(el);
-        console.log(url)
-        el.click();
-        document.body.removeChild(el);
+        }
+        return url
     }
 
     //search button clicked
     $('#search').click(function () {
-        useURL(buildURL)
+        let url = ''
+        let words = []
+        chrome.storage.sync.get(['words'], function (storage) {
+            words = storage.words
+            url = buildURL(words)
+            let el = document.createElement('a')
+            el.href = url;
+            el.target = '_blank';
+            document.body.appendChild(el)
+            el.click()
+            document.body.removeChild(el)
+        })
     });
 
     //remove one word
